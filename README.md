@@ -30,12 +30,14 @@ sudo dd bs=4M if=./artix-base-dinit-20250728-x86_64.iso of=/dev/sdb status=progr
 
 ```bash
 # list available keymaps
-localectl list-keymaps
+ls -R /usr/share/kbd/keymaps | less
 # load the keymap
 loadkeys <your keymap here>
 ```
 
-2. Connect to wifi
+2. Verify the UEFI boot mode **cat /sys/firmware/efi/fw_platform_size**. This installation is written for a system with a 64-bit x64 UEFI.
+
+3. Connect to wifi
 
 ```bash
 # Many laptops have a hardware button (or switch) to turn off the wireless card; however, the card can also be blocked by the kernel
@@ -68,7 +70,7 @@ dhcpcd wlan0
 
 **[optional]** To ssh into the target machine you will need to:
 
-3. Configure ssh
+4. Configure ssh
 
 ```bash
 vi /etc/ssh/sshd_config
@@ -82,7 +84,6 @@ dinitctl start sshd
 
 - Ensure that **ssh** is running with **dinitctl status sshd**
 
-4. Verify the UEFI boot mode **cat /sys/firmware/efi/fw_platform_size**. This installation is written for a system with a 64-bit x64 UEFI.
 5. **[optional]** Obtain your IP Address with **ip addr show**, now you're ready to ssh into your target machine
 6. Update the system clock
 
