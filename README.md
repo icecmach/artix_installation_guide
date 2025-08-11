@@ -225,7 +225,7 @@ Next, we will install all of the packages we need for our system. Refer to the b
 6. install the main packages that our system will use:
 
 ```bash
-pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd mtools networkmanager openntpd-dinit openssh openssh-dinit os-prober pipewire pipewire-dinit pipewire-pulse pipewire-jack sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
+pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd mtools networkmanager openntpd-dinit openssh openssh-dinit os-prober pipewire pipewire-dinit pipewire-jack sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
 ```
 
 7. install the following based on the manufacturer of your CPU:
@@ -250,7 +250,7 @@ pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} xlibre-xf86-video-{v
 9. install i3-wm and other useful packages:
 
 ```bash
-pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages noto-fonts-cjk noto-fonts-emoji noto-fonts numlockx noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
+pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
 10. edit the mkinitcpio file for encrypt:
