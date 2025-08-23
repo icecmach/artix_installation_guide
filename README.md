@@ -64,6 +64,15 @@ iw dev wlan0 connect MYSSID
 wpa_passphrase MYSSID passphrase > /etc/wpa_supplicant/example.conf
 wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/example.conf
 dhcpcd wlan0
+
+# Using NetworkManager
+# List nearby Wi-Fi networks
+nmcli device wifi list
+# Connect to a Wi-Fi network:
+nmcli device wifi connect SSID_or_BSSID password password
+
+# Using nmtui
+nmtui
 ```
 
 - Confirm that your connection is active with **ping -c 2 artixlinux.org**
@@ -225,7 +234,11 @@ Next, we will install all of the packages we need for our system. Refer to the b
 6. install the main packages that our system will use:
 
 ```bash
-pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd mtools networkmanager openntpd-dinit openssh openssh-dinit os-prober pipewire pipewire-dinit pipewire-jack sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
+pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs \
+cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd \
+mtools networkmanager networkmanager-dinit openntpd-dinit openssh openssh-dinit os-prober \
+pipewire pipewire-dinit pipewire-jack pipewire-pulse \
+sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
 ```
 
 7. install the following based on the manufacturer of your CPU:
@@ -242,7 +255,18 @@ pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs cryptsetu
 8. install **XLibre** + **i3-wm**:
 
 ```bash
-pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy} xlibre-xf86-input-{libinput,evdev,vmmouse} xorg-{xinit,xmodmap,xrandr,xsetroot,xprop}
+# If using Nvidia
+pacman -S nvidia
+```
+
+```bash
+pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} \
+xlibre-xf86-input-{libinput,evdev,vmmouse} \
+xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xsetroot} \
+# AMD
+xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy}
+# Intel
+xlibre-xf86-video-{vesa,intel,fbdev,dummy}
 ```
 
 > **NOTE:** Any tiling window manager or graphical user environment can be installed at this stage.
@@ -250,14 +274,16 @@ pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} xlibre-xf86-video-{v
 9. install i3-wm and other useful packages:
 
 ```bash
-pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
+pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages \
+7zip btop eza feh fzf newsboat starship stow unzip zed zoxide \
+noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
 10. edit the mkinitcpio file for encrypt:
 
 - **vim /etc/mkinitcpio.conf**
   - add `btrfs` to the MODULES: **MODULES=(btrfs)**
-  - add encrypt to HOOKS (before filesystems): **encrypt filesystems fsck)**
+  - add `encrypt` to HOOKS (before filesystems): **encrypt filesystems fsck)**
 - recreate the mkinitcpio.conf with **mkinitcpio -p linux**
 
 11. setup grub for the bootloader so that the system can boot linux:
@@ -333,10 +359,12 @@ Install [lm_sensors](https://wiki.archlinux.org/title/Lm_sensors)
 
 ```bash
 sudo pacman -S lm_sensors
+###
 # Asrock B650M Pro RS / B850M Pro RS / X870 Pro RS
 sudo echo "options nct6775 force_id=0xd801" > /etc/modprobe.d/nct6775.conf
 sudo modprobe nct6775
 sudo sensors-detect --auto
+###
 # Check output of sensors
 sensors
 # Load nct6775.ko at boot
