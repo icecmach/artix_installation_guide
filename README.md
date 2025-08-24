@@ -234,7 +234,7 @@ Next, we will install all of the packages we need for our system. Refer to the b
 6. install the main packages that our system will use:
 
 ```bash
-pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-utils btrfs-progs \
+pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-progs \
 cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd \
 mtools networkmanager networkmanager-dinit openntpd-dinit openssh openssh-dinit os-prober \
 pipewire pipewire-dinit pipewire-jack pipewire-pulse \
@@ -262,7 +262,7 @@ pacman -S nvidia
 ```bash
 pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} \
 xlibre-xf86-input-{libinput,evdev,vmmouse} \
-xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xsetroot} \
+xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xset,xsetroot} \
 # AMD
 xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy}
 # Intel
