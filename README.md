@@ -69,7 +69,7 @@ dhcpcd wlan0
 # List nearby Wi-Fi networks
 nmcli device wifi list
 # Connect to a Wi-Fi network:
-nmcli device wifi connect SSID_or_BSSID password password
+nmcli device wifi connect SSID_or_BSSID password your_password_here
 
 # Using nmtui
 nmtui
@@ -214,7 +214,7 @@ echo "KEYMAP=en..." >> /etc/vconsole.conf
 2. change the hostname
 
 ```bash
-echo "artix-vm" >> /etc/hostname
+echo "Artix" >> /etc/hostname
 ```
 
 3. set your root password: **passwd**
@@ -237,7 +237,7 @@ Next, we will install all of the packages we need for our system. Refer to the b
 pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-progs \
 cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd \
 mtools networkmanager networkmanager-dinit openntpd-dinit openssh openssh-dinit os-prober \
-pipewire pipewire-dinit pipewire-jack pipewire-pulse \
+pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse \
 sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
 ```
 
@@ -267,6 +267,14 @@ xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xset,xsetroot} \
 xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy}
 # Intel
 xlibre-xf86-video-{vesa,intel,fbdev,dummy}
+```
+
+> **NOTE:** To enable loading of the proprietary Nvidia driver, please add the following to your X configuration, e.g., **/etc/X11/xorg.conf**
+
+```
+Section "ServerFlags"
+    Option "IgnoreABI" "1"
+EndSection
 ```
 
 > **NOTE:** Any tiling window manager or graphical user environment can be installed at this stage.
@@ -315,7 +323,7 @@ Now for the moment of truth. Make sure you have followed these steps above caref
 
 When you boot up you will be presented with the grub bootloader menu, and then, once you have selected to boot into arch linux (or the timer has timed out and selected your default option) you will be prompted to enter your encryption password. Upon successful decryption, you will be presented with the login screen. Enter the password for the user you created earlier.
 
-1. install [yay](https://github.com/Jguer/yay):
+1. Install [yay](https://github.com/Jguer/yay) to get access to AUR packages
 
 ```bash
 sudo pacman -S --needed base-devel
@@ -327,14 +335,7 @@ yay -Syu --devel
 yay -Y --devel --save
 ```
 
-2. install [snapper]:
-
-```bash
-sudo pacman -S snapper
-[TODO]
-```
-
-3. Pacman hooks
+2. Pacman hooks
 
 Everytime a package is installed or removed it updates a file with the list of installed packages in the system
 
@@ -353,7 +354,7 @@ When = PostTransaction
 Exec = /bin/sh -c "/usr/bin/pacman -Qqet > /home/username/pkglist.txt"
 ```
 
-4. Sensors for hardware monitoring, temperatures and fan speed
+3. Sensors for hardware monitoring, temperatures and fan speed
 
 Install [lm_sensors](https://wiki.archlinux.org/title/Lm_sensors)
 
@@ -369,4 +370,14 @@ sudo sensors-detect --auto
 sensors
 # Load nct6775.ko at boot
 sudo echo "nct6775" > /etc/modules-load.d/nct6775.conf
+```
+
+4. Update repository mirrorlist
+
+**rankmirrors** command outputs a list of the fastest mirrors for your location
+
+You need to copy the output and replace the default mirrors in /etc/pacman.d/mirrorlist
+
+```bash
+rankmirrors -v -n 5 -m 2 -w /etc/pacman.d/mirrorlist
 ```
