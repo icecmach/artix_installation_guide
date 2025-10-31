@@ -283,7 +283,7 @@ EndSection
 
 ```bash
 pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages \
-7zip btop eza feh fzf newsboat starship stow unzip zed zoxide \
+7zip btop eza feh fzf newsboat picom starship stow unzip zed zoxide \
 noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
