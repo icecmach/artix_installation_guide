@@ -269,11 +269,11 @@ xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy}
 xlibre-xf86-video-{vesa,intel,fbdev,dummy}
 ```
 
-> **NOTE:** To enable loading of the proprietary Nvidia driver, please add the following to your X configuration, e.g., **/etc/X11/xorg.conf**
+> **NOTE:** To enable loading of the proprietary Nvidia driver, create the file **/etc/X11/xorg.conf.d/xlibre.conf**
 
 ```
 Section "ServerFlags"
-    Option "IgnoreABI" "1"
+    Option "IgnoreABI" "true"
 EndSection
 ```
 
