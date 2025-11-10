@@ -237,7 +237,7 @@ Next, we will install all of the packages we need for our system. Refer to the b
 
 ```bash
 pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-progs \
-cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft \
+cryptsetup dhcpcd dinit-user-spawn efibootmgr git grub grub-btrfs ipset iptables-nft \
 mtools networkmanager networkmanager-dinit nfs-utils openntpd-dinit openssh openssh-dinit \
 pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse rsync \
 sof-firmware ufw wireplumber wireplumber-dinit
@@ -294,7 +294,7 @@ EndSection
 
 ```bash
 pacman -S alacritty dmenu fish flameshot i3-wm i3status i3lock keepassxc man-db man-pages \
-7zip btop eza feh fzf newsboat picom starship qt5ct qt6ct stow thunar unzip zoxide \
+7zip btop eza feh fzf newsboat picom starship qt5ct qt6ct stow thunar tumbler unzip zoxide \
 noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
