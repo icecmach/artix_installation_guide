@@ -172,8 +172,10 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 10. Install base packages:
 
+> **NOTE:** install the firmwares you need, if not sure install **linux-firmware**
+
 ```bash
-basestrap /mnt base base-devel dinit elogind-dinit linux linux-headers linux-firmware
+basestrap /mnt base base-devel dinit elogind-dinit linux linux-headers linux-firmware-amdgpu linux-firmware-mediatek
 ```
 
 11. generate the file system table:
@@ -235,10 +237,10 @@ Next, we will install all of the packages we need for our system. Refer to the b
 
 ```bash
 pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-progs \
-cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft iw iwd \
-mtools networkmanager networkmanager-dinit openntpd-dinit openssh openssh-dinit os-prober \
-pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse \
-sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
+cryptsetup dhcpcd efibootmgr git grub grub-btrfs ipset iptables-nft \
+mtools networkmanager networkmanager-dinit nfs-utils openntpd-dinit openssh openssh-dinit \
+pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse rsync \
+sof-firmware ufw wireplumber wireplumber-dinit
 ```
 
 7. install the following based on the manufacturer of your CPU:
@@ -252,12 +254,21 @@ sof-firmware ufw wireplumber wireplumber-dinit wpa_supplicant
   pacman -S amd-ucode
   ```
 
-8. install **XLibre** + **i3-wm**:
+GPU:
+
+- **AMD:**
 
 ```bash
-# If using Nvidia
+pacman -S vulkan-radeon
+```
+
+- **NVIDIA:**
+
+```bash
 pacman -S nvidia
 ```
+
+8. install **XLibre** + **i3-wm**:
 
 ```bash
 pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} \
@@ -282,8 +293,8 @@ EndSection
 9. install i3-wm and other useful packages:
 
 ```bash
-pacman -S alacritty dmenu i3-wm i3status i3lock man-db man-pages \
-7zip btop eza feh fzf newsboat picom starship stow unzip zed zoxide \
+pacman -S alacritty dmenu fish flameshot i3-wm i3status i3lock keepassxc man-db man-pages \
+7zip btop eza feh fzf newsboat picom starship qt5ct qt6ct stow thunar unzip zoxide \
 noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
