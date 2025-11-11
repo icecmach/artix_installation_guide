@@ -240,7 +240,7 @@ pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-pro
 cryptsetup dhcpcd dinit-user-spawn efibootmgr git grub grub-btrfs ipset iptables-nft \
 mtools networkmanager networkmanager-dinit nfs-utils openntpd-dinit openssh openssh-dinit \
 pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse rsync \
-sof-firmware ufw wireplumber wireplumber-dinit
+sof-firmware ufw ufw-dinit wireplumber wireplumber-dinit
 ```
 
 7. install the following based on the manufacturer of your CPU:
@@ -325,6 +325,7 @@ ln -s /etc/dinit.d/bluetoothd /etc/dinit.d/boot.d/
 ln -s /etc/dinit.d/sshd /etc/dinit.d/boot.d/
 ln -s /etc/dinit.d/acpid /etc/dinit.d/boot.d/
 ln -s /etc/dinit.d/ntpd /etc/dinit.d/boot.d/
+ln -s /etc/dinit.d/ufw /etc/dinit.d/boot.d/
 exit
 ```
 
@@ -391,4 +392,17 @@ You need to copy the output and replace the default mirrors in /etc/pacman.d/mir
 
 ```bash
 rankmirrors -v -n 5 -m 2 -w /etc/pacman.d/mirrorlist
+```
+
+5. Firewall
+
+Basic firewall rules
+
+```bash
+# Deny all non-explicitly allowed ports
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Allow SSH access
+sudo ufw allow ssh
 ```
