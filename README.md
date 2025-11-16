@@ -272,7 +272,7 @@ pacman -S nvidia
 
 ```bash
 pacman -S xlibre-xserver xlibre-xserver-{common,devel,xvfb} \
-xlibre-xf86-input-{libinput,evdev,vmmouse} \
+xlibre-input-libinput xlibre-xf86-input-{evdev,vmmouse} \
 xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xset,xsetroot} \
 # AMD
 xlibre-xf86-video-{vesa,amdgpu,fbdev,ati,dummy}
