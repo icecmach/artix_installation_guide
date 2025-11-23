@@ -243,30 +243,30 @@ pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse rsync \
 sof-firmware ufw ufw-dinit wireplumber wireplumber-dinit
 ```
 
-7. install the following based on the manufacturer of your CPU:
+7. install the following based on the manufacturer of your CPU / GPU:
 
-- **Intel:**
-  ```bash
-  pacman -S intel-ucode
-  ```
-- **AMD:**
-  ```bash
-  pacman -S amd-ucode
-  ```
+- **CPU**
+  - **Intel:**
+    ```bash
+    pacman -S intel-ucode
+    ```
+  - **AMD:**
+    ```bash
+    pacman -S amd-ucode
+    ```
 
-GPU:
-
-- **AMD:**
-
-```bash
-pacman -S vulkan-radeon
-```
-
-- **NVIDIA:**
-
-```bash
-pacman -S nvidia
-```
+- **GPU**
+  - **AMD:**
+    ```bash
+    pacman -S vulkan-radeon
+    ```
+  - **NVIDIA:**
+    ```bash
+    # Choose between open source driver:
+    pacman -S nvidia-open
+    # Or the propietary driver:
+    pacman -S nvidia
+    ```
 
 8. install **XLibre** + **i3-wm**:
 
@@ -278,14 +278,6 @@ xorg-{xdpyinfo,xinit,xmodmap,xprop,xrandr,xset,xsetroot} \
 xlibre-video-{vesa,amdgpu,fbdev,ati,dummy}
 # Intel
 xlibre-video-{vesa,intel,fbdev,dummy}
-```
-
-> **NOTE:** To enable loading of the proprietary Nvidia driver, create the file **/etc/X11/xorg.conf.d/xlibre.conf**
-
-```
-Section "ServerFlags"
-    Option "IgnoreABI" "true"
-EndSection
 ```
 
 > **NOTE:** Any tiling window manager or graphical user environment can be installed at this stage.
