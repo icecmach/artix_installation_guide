@@ -1,6 +1,6 @@
 ###### 01 August 2025
 
-# Artix Install [btrfs + encryption + dinit + X11Libre + i3]
+# Artix Install [btrfs + encryption + dinit + (X11Libre + i3) / (Wayland + Hyprland)]
 
 These are the installation instructions used for the Artix system that I use on my own machine.
 Always consult the official Artix wiki [install guide](https://wiki.artixlinux.org/Main/Installation) as well the Arch [install guide](https://wiki.archlinux.org/title/Installation_guide),
@@ -12,6 +12,7 @@ provide a walkthrough on setting up your own system with the following:
 - [dinit](https://github.com/davmac314/dinit/blob/master/doc/getting_started.md): service manager and init system
 - [X11Libre](https://github.com/X11Libre/xserver): XLibre is a display server implementation of the X Window System Protocol Version 11 (X11)
 - [i3-wm](https://i3wm.org/): Improved tiling window manager
+- [hyprland](https://hypr.land/): Dynamic tiling, all the eyecandy, powerful plugins and much more
 
 ## Step 1: Creating a bootable Artix media device
 
@@ -175,7 +176,10 @@ mount /dev/nvme0n1p1 /mnt/boot
 > **NOTE:** install the firmwares you need, if not sure install **linux-firmware**
 
 ```bash
+# Workstation
 basestrap /mnt base base-devel dinit elogind-dinit linux linux-headers linux-firmware-amdgpu linux-firmware-mediatek
+# Laptop
+basestrap /mnt base base-devel dinit elogind-dinit linux linux-headers linux-firmware-intel linux-firmware-nvidia linux-firmware-realtek
 ```
 
 11. generate the file system table:
@@ -209,8 +213,8 @@ pacman -S vim
 locale-gen
 # for locale
 echo "LANG=en_CA.UTF-8" >> /etc/locale.conf
-# for keyboard
-echo "KEYMAP=en..." >> /etc/vconsole.conf
+# for keyboard (if using non-standard layout)
+echo "KEYMAP=colemak" >> /etc/vconsole.conf
 ```
 
 2. change the hostname
@@ -268,6 +272,8 @@ sof-firmware ufw ufw-dinit wireplumber wireplumber-dinit
     pacman -S nvidia
     ```
 
+### **i3-wm + XLibre**
+
 8. install **XLibre** + **i3-wm**:
 
 ```bash
@@ -287,6 +293,16 @@ xlibre-video-{vesa,intel,fbdev,dummy}
 ```bash
 pacman -S alacritty dmenu fish flameshot i3-wm i3status i3lock keepassxc man-db man-pages \
 7zip btop eza feh fzf newsboat picom starship qt5ct qt6ct stow thunar tumbler unzip zoxide \
+noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
+```
+
+### **Hyprland**
+
+9. install Hyprland and other useful packages:
+
+```bash
+pacman -S alacritty fish hyprland hypridle hyprlock hyprpaper hyprpolkitagent hyprshot keepassxc man-db man-pages \
+7zip btop eza feh fzf newsboat starship qt5ct qt6ct stow thunar tumbler unzip wf-recorder zoxide \
 noto-fonts-cjk noto-fonts-emoji noto-fonts otf-commit-mono-nerd texinfo ttf-firacode-nerd
 ```
 
