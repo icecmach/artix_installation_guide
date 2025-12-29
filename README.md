@@ -227,7 +227,7 @@ echo "Artix" >> /etc/hostname
 4. set up a new user (replace **ice** with your preferred username):
 
 ```bash
-useradd -m -g users -G wheel ice
+useradd -m -g users -G video,wheel ice
 # give your user a password with
 passwd ice
 # add your user to the sudoers group
@@ -240,7 +240,7 @@ Next, we will install all of the packages we need for our system. Refer to the b
 6. install the main packages that our system will use:
 
 ```bash
-pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils btrfs-progs \
+pacman -Syu acpid acpid-dinit alsa-utils bluez bluez-dinit bluez-utils brightnessctl btrfs-progs \
 cryptsetup dhcpcd dinit-user-spawn efibootmgr git grub grub-btrfs ipset iptables-nft \
 mtools networkmanager networkmanager-dinit nfs-utils openntpd-dinit openssh openssh-dinit \
 pacman-contrib pipewire pipewire-dinit pipewire-jack pipewire-pulse rsync \
